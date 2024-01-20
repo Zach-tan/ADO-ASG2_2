@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: raw_customer
+    columns:
+      - name: customerid
+        tests:
+          - unique
+          - not_null
+
+  - name: raw_employee
+    columns:
+      - name: employeeid
+        tests:
+          - unique
+          - not_null
+
+  - name: raw_orders
+    columns:
+      - name: orderid
+        tests:
+          - unique
+          - not_null
+
+  - name: raw_order_detail
+    tests:
+      - unique:
+          column_name: "(orderid || '-' || productid)"
+      - not_null:
+          column_name: "(orderid || '-' || productid)"
+
+  - name: raw_product
+    columns:
+      - name: productid
+        tests:
+          - unique
+          - not_null
+
+  - name: raw_shipper
+    columns:
+      - name: shipperid
+        tests:
+          - unique
+          - not_null
+
+  - name: raw_supplier
+    columns:
+      - name: supplierid
+        tests:
+          - unique
+          - not_null
+
+  - name: raw_category
+    columns:
+      - name: categoryid
+        tests:
+          - unique
+          - not_null
+
+  - name: raw_employee_territory
+    tests:
+      - unique:
+          column_name: "(employeeid || '-' || territoryid)"
+      - not_null:
+          column_name: "(employeeid || '-' || territoryid)"
+
+  - name: raw_region
+    columns:
+      - name: regionid
+        tests:
+          - unique
+          - not_null
+
+  - name: raw_territory
+    columns:
+      - name: territoryid
+        tests:
+          - unique
+          - not_null

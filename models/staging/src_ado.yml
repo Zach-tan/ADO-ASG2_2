@@ -1,0 +1,114 @@
+version: 2
+
+sources:
+  - name: ADO
+    description: a clone of the Snowflake Database
+    database: RAW
+    schema: NWTSCHEMA
+    tables:
+      - name: CATEGORY
+        description: raw category table
+        columns:
+          - name: categoryid
+            description: primary key for categories
+            tests:
+              - unique
+              - not_null
+      - name: CUSTOMER
+        description: raw customer table
+        columns:
+          - name: customerid
+            description: primary key for customers
+            tests:
+              - unique
+              - not_null
+      - name: EMPLOYEE
+        description: raw employee table
+        columns:
+          - name: employeeid
+            description: primary key for employees
+            tests:
+              - unique
+              - not_null
+      - name: EMPLOYEETERRITORY
+        description: raw employee territory table
+        columns:
+          - name: employeeid
+            description: employee identifier (foreign key, composite key with territoryid)
+            tests:
+              - not_null
+          - name: territoryid
+            description: territory identifier (foreign key, composite key with employeeid)
+            tests:
+              - not_null
+      - name: ORDERDETAIL
+        description: raw order detail table
+        columns:
+          - name: orderid
+            description: order identifier (foreign key, composite key with productid)
+            tests:
+              - not_null
+          - name: productid
+            description: product identifier (foreign key, composite key with orderid)
+            tests:
+              - not_null
+      - name: ORDERS
+        description: raw orders table
+        columns:
+          - name: orderid
+            description: primary key for orders
+            tests:
+              - unique
+              - not_null
+      - name: PRODUCT
+        description: raw product table
+        columns:
+          - name: productid
+            description: primary key for products
+            tests:
+              - unique
+              - not_null
+      - name: REGION
+        description: raw region table
+        columns:
+          - name: regionid
+            description: primary key for regions
+            tests:
+              - unique
+              - not_null
+      - name: SHIPPER
+        description: raw shipper table
+        columns:
+          - name: shipperid
+            description: primary key for shippers
+            tests:
+              - unique
+              - not_null
+      - name: SUPPLIER
+        description: raw supplier table
+        columns:
+          - name: supplierid
+            description: primary key for suppliers
+            tests:
+              - unique
+              - not_null
+      - name: TERRITORY
+        description: raw territory table
+        columns:
+          - name: territoryid
+            description: primary key for territories
+            tests:
+              - unique
+              - not_null
+      - name : FRESH_ORDERS
+        description: fresh orders to be appended into ORDERS
+        columns:
+          - name: ORDERID
+            description: primary key for FRESH_ORDERS
+      - name: FRESH_ORDERDETAIL
+        description: fresh order detail to be appended into ORDERDETAIL
+        columns:
+          - name: orderid
+            description: order identifier (foreign key, composite key with productid)
+          - name: productid
+            description: product identifier (foreign key, composite key with orderid)
