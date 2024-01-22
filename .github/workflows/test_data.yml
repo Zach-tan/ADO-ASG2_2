@@ -8,8 +8,8 @@ on:
 # Setting some Env variables to work  with profiles.yml
 env:
   DBT_PROFILE_TARGET: dev
-  DBT_PROFILE_USER: ${{ secrets.DBT_PROFILE_USER }}
-  DBT_PROFILE_PASSWORD: ${{ secrets.DBT_PROFILE_PASSWORD }}
+  DBT_PROFILE_USER: ${{ secrets.DBT_USER }}
+  DBT_PROFILE_PASSWORD: ${{ secrets.DBT_PASSWORD }}
 
 jobs:
   dbt_run:
