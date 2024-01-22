@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-      
-# Setting some Env variables to work  with profiles.yml
 
 jobs:
-  dbt_run:
+  run-dbt:
     runs-on: ubuntu-latest
     # Steps of the workflow:
     steps:
