@@ -23,9 +23,10 @@ jobs:
           pip install dbt
 
       - name: Create dbt_cloud.yml
-        run: echo "{}" > /home/runner/.dbt/dbt_cloud.yml
-
-      - name: Run dbt
         run: |
+          mkdir -p /home/runner/.dbt
           echo "{}" > /home/runner/.dbt/dbt_cloud.yml
-          dbt test --profiles-dir profiles --target dev
+      
+      - name: Run dbt
+        run: dbt test --profiles-dir profiles --target dev
+
