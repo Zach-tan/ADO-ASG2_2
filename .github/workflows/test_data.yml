@@ -34,7 +34,7 @@ jobs:
 
       - name: Run the models
         run: dbt run
-        working-directory: ./models/raw/raw_supplier.sql
+        working-directory: ./models/raw
 
       - name: Run tests
         run: dbt test
