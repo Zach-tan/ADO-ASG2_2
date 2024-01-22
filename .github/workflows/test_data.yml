@@ -6,35 +6,34 @@ on:
       - main
       
 # Setting some Env variables to work  with profiles.yml
-env:
-  DBT_PROFILE_TARGET: dev
-  DBT_PROFILE_USER: ${{ secrets.DBT_USER }}
-  DBT_PROFILE_PASSWORD: ${{ secrets.DBT_PASSWORD }}
 
 jobs:
   dbt_run:
-    name: Scheduled dbt refresh and test
     runs-on: ubuntu-latest
-
     # Steps of the workflow:
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Setup Python environment
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
-          python-version: "3.11"
+          python-version: "3.10"
 
       - name: Install dependencies
-        run: python -m pip install --upgrade pip
-
-      - name: Install dbt
-        run: pip install dbt
+        run: |
+          python -m pip install --upgrade pip
+          pip install dbt_snowflake
 
       - name: Run the models
-        run: dbt run
-        working-directory: ./models/raw
+        env:
+          DBT_ACCOUNT: ${{ secrets.DBT_ACCOUNT }}
+          DBT_USER: ${{ secrets.DBT_USER }}
+          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+        run: dbt run --profiles-dir prtofiles
+
+      - name: run dbt tests
+      - run: dbt test -s test_raw_orders_requireddate --profiles-dir profiles
 
       - name: Run tests
         run: dbt test
