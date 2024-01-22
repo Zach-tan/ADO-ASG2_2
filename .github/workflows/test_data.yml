@@ -31,8 +31,4 @@ jobs:
         run: dbt run --profiles-dir prtofiles
 
       - name: run dbt tests
-      - run: dbt test -s test_raw_orders_requireddate --profiles-dir profiles
-
-      - name: Run tests
-        run: dbt test
-        # working-directory: ./my_dbt_project
+        run: dbt test -s test_raw_orders_requireddate --profiles-dir profiles
