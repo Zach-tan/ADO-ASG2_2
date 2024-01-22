@@ -1,4 +1,4 @@
-name: Run dbt Pipeline
+name: Run dbt test
 
 on:
   push:
@@ -31,4 +31,4 @@ jobs:
         run: dbt run --profiles-dir profiles
 
       - name: run dbt tests
-        run: dbt test -s test_raw_orders_requireddate --profiles-dir profiles
+        run: dbt test --profiles-dir profiles
