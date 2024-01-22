@@ -1,0 +1,22 @@
+ADO:
+  outputs:
+    dev:
+      account: LNWBDZC-RW87386
+      database: RAW
+      password: ADOTeam42
+      role: accountadmin
+      schema: NWTSchema
+      threads: 6
+      type: snowflake
+      user: ADOTeam42
+      warehouse: ADOWAREHOUSE
+
+  config:
+     env:
+      DBT_ACCOUNT: ${{ secrets.DBT_ACCOUNT }}
+      DBT_USER: ${{ secrets.DBT_USER }}
+      DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+      SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+    
+  target: dev
