@@ -39,6 +39,8 @@ SELECT
     OrderDetailUnitPrice,
     OrderDetailQuantity,
     OrderDetailDiscount,
+    ProductUnitCost,
+
 
     -- Employee Territory Table Columns
     EmployeeTerritoryID,
@@ -53,6 +55,7 @@ SELECT
     -- Sales Agent Analysis Columns
     TotalSalesAmount,
     AvgOrderValue,
-    TopSalesAgent
+    TopSalesAgent,
+    TotalProfit
 FROM
     {{ ref('stg_salesagent') }}

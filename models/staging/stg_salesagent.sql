@@ -41,6 +41,18 @@ TopSalesAgents AS (
         SalesSummary ss
     LEFT JOIN
         AverageOrderValue ao ON ss.EmployeeID = ao.EmployeeID
+),
+OrderProfits AS (
+    SELECT
+        od.OrderID,
+        od.ProductID,
+        od.Quantity,
+        p.UnitCost,  -- Assuming UnitCost is available in the Product table
+        (od.UnitPrice - p.UnitCost) * od.Quantity AS ProfitPerProduct
+    FROM
+        {{ ref('raw_order_detail') }} od
+    LEFT JOIN
+        {{ source('ADO', 'PRODUCT') }} p ON od.ProductID = p.ProductID
 )
 SELECT
     -- Order Table Columns
@@ -84,6 +96,9 @@ SELECT
     od.Quantity AS OrderDetailQuantity,
     od.Discount AS OrderDetailDiscount,
 
+    -- Product Table Columns
+    p.UnitCost AS ProductUnitCost,
+
     -- Employee Territory Table Columns
     et.TerritoryID AS EmployeeTerritoryID,
 
@@ -97,13 +112,16 @@ SELECT
     -- Sales Agent Analysis Columns
     ts.TotalSalesAmount,
     ts.AvgOrderValue,
-    ts.TopSalesAgent
+    ts.TopSalesAgent,
+    SUM(op.ProfitPerProduct) AS TotalProfit
 FROM
     {{ ref('raw_orders') }} o
 LEFT JOIN
      {{ ref('raw_employee') }} e ON e.EmployeeID = o.EmployeeID
 LEFT JOIN
     {{ ref('raw_order_detail') }} od ON o.OrderID = od.OrderID
+LEFT JOIN
+    OrderProfits op ON od.OrderID = op.OrderID AND od.ProductID = op.ProductID
 LEFT JOIN
     {{ ref('raw_employee_territory') }} et ON e.EmployeeID = et.EmployeeID
 LEFT JOIN
@@ -112,3 +130,50 @@ LEFT JOIN
     {{ ref('raw_region') }} r ON t.RegionID = r.RegionID
 LEFT JOIN
     TopSalesAgents ts ON e.EmployeeID = ts.EmployeeID
+LEFT JOIN
+    {{ source('ADO', 'PRODUCT') }} p ON od.ProductID = p.ProductID
+GROUP BY
+    -- Include all non-aggregated columns in the GROUP BY clause
+    o.OrderID,
+    o.CustomerID,
+    o.EmployeeID,
+    o.OrderDate,
+    o.RequiredDate,
+    o.ShippedDate,
+    o.ShipVia,
+    o.Freight,
+    o.ShipName,
+    o.ShipAddress,
+    o.ShipCity,
+    o.ShipRegion,
+    o.ShipPostalCode,
+    o.ShipCountry,
+    e.LastName,
+    e.FirstName,
+    e.Title,
+    e.TitleOfCourtesy,
+    e.BirthDate,
+    e.HireDate,
+    e.Address,
+    e.City,
+    e.Region,
+    e.PostalCode,
+    e.Country,
+    e.HomePhone,
+    e.Extension,
+    e.Photo,
+    e.Notes,
+    e.ReportsTo,
+    e.PhotoPath,
+    od.ProductID,
+    od.UnitPrice,
+    od.Quantity,
+    od.Discount,
+    p.UnitCost,
+    et.TerritoryID,
+    t.TerritoryDescription,
+    r.RegionID,
+    r.RegionDescription,
+    ts.TotalSalesAmount,
+    ts.AvgOrderValue,
+    ts.TopSalesAgent
