@@ -24,4 +24,4 @@ jobs:
 
       - name: Run dbt
         run: |
-          dbt test --profiles-dir profiles
+          dbt test --profiles-dir
