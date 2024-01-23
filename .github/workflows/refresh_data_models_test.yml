@@ -56,7 +56,7 @@ jobs:
           python -c "import snowflake.connector; con = snowflake.connector.connect(user='${SNOWFLAKE_USER}', password='${SNOWFLAKE_PASSWORD}', account='${SNOWFLAKE_ACCOUNT}', warehouse='${SNOWFLAKE_WAREHOUSE}', database='${SNOWFLAKE_DATABASE}', schema='${SNOWFLAKE_SCHEMA}'); cur = con.cursor(); cur.execute(\"PUT file://order_detail_fresh.csv @stage;\");"
 
           # Copy data into Snowflake table
-          python -c "import snowflake.connector; con = snowflake.connector.connect(user='${SNOWFLAKE_USER}', password='${SNOWFLAKE_PASSWORD}', account='${SNOWFLAKE_ACCOUNT}', warehouse='${SNOWFLAKE_WAREHOUSE}', database='${SNOWFLAKE_DATABASE}', schema='${SNOWFLAKE_SCHEMA}'); cur = con.cursor(); cur.execute(\"COPY INTO NWTSchema.fresh_order_detail FROM @stage/order_detail_fresh.csv.gz FILE_FORMAT = (FORMAT_NAME = 'csv_format') PURGE = FALSE;\");"
+          python -c "import snowflake.connector; con = snowflake.connector.connect(user='${SNOWFLAKE_USER}', password='${SNOWFLAKE_PASSWORD}', account='${SNOWFLAKE_ACCOUNT}', warehouse='${SNOWFLAKE_WAREHOUSE}', database='${SNOWFLAKE_DATABASE}', schema='${SNOWFLAKE_SCHEMA}'); cur = con.cursor(); cur.execute(\"COPY INTO NWTSchema.fresh_orderdetail FROM @stage/order_detail_fresh.csv.gz FILE_FORMAT = (FORMAT_NAME = 'csv_format') PURGE = FALSE;\");"
     
       - name: Install dependencies
         run: |
