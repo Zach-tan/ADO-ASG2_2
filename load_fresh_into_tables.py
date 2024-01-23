@@ -1,4 +1,6 @@
 import snowflake.connector
+import requests
+from io import StringIO
 
 # Snowflake connection parameters
 snowflake_config = {
@@ -10,8 +12,7 @@ snowflake_config = {
     "schema": "NWTSchema",
 }
 
-# Snowflake stage and table names
-stage_name = "stage"
+# Snowflake table name
 table_name = "FRESH_ORDERS_TEST"
 
 # Snowflake connection
@@ -27,8 +28,13 @@ conn = snowflake.connector.connect(
 # Snowflake cursor
 cursor = conn.cursor()
 
-# Copy data from stage to table
-copy_query = f"COPY INTO {table_name} FROM @{stage_name} FILE_FORMAT = (FORMAT_NAME = 'LOAD_FRESH')"
+# Fetch data from the URL
+url = 'https://raw.githubusercontent.com/just4jc/Northwind-Traders-Dataset/main/order_fresh.csv'
+response = requests.get(url)
+data = response.text
+
+# Copy data from CSV string to table
+copy_query = f"COPY INTO {table_name} FROM VALUES {data} FILE_FORMAT = (FORMAT_NAME = 'LOAD_FRESH')"
 cursor.execute(copy_query)
 
 # Commit the changes
