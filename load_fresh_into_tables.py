@@ -12,7 +12,8 @@ snowflake_config = {
     "schema": "NWTSchema",
 }
 
-# Snowflake table name
+# Snowflake stage and table names
+stage_name = "STAGE"
 table_name = "FRESH_ORDERS_TEST"
 
 # Snowflake connection
@@ -33,8 +34,15 @@ url = 'https://raw.githubusercontent.com/just4jc/Northwind-Traders-Dataset/main/
 response = requests.get(url)
 data = response.text
 
-# Copy data from CSV string to table
-copy_query = f"COPY INTO {table_name} FROM VALUES {data} FILE_FORMAT = (FORMAT_NAME = 'LOAD_FRESH')"
+# Create a temporary file-like object for the CSV data
+csv_data = StringIO(data)
+
+# Upload CSV data to Snowflake stage
+put_query = f"PUT 'file://{csv_data}' @{stage_name}"
+cursor.execute(put_query)
+
+# Copy data from stage to table
+copy_query = f"COPY INTO {table_name} FROM @{stage_name} FILE_FORMAT = (FORMAT_NAME = 'LOAD_FRESH')"
 cursor.execute(copy_query)
 
 # Commit the changes
