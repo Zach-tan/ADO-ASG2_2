@@ -3,7 +3,7 @@ import snowflake.connector
 # Snowflake connection parameters
 snowflake_config = {
     "user": "ADOTeam42",
-    "password": "ADOTeam4",
+    "password": "ADOTeam42",
     "account": "LNWBDZC-RW87386",
     "warehouse": "ADOWAREHOUSE",
     "database": "RAW",
