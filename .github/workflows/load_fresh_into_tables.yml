@@ -22,7 +22,20 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install snowflake-connector-python requests
-
+      - name: Load Data to Snowflake Stage
+        run: |
+            DBT_USER: ${{ secrets.SNOWFLAKE_USER }}
+            DBT_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+            DBT_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+            SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+            SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+        
+            # GitHub raw data URL
+            github_raw_url: 'https://raw.githubusercontent.com/just4jc/Northwind-Traders-Dataset/main/order_fresh.csv'
+            # Snowflake PUT command to load data into stage
+            snowsql -a $snowflake_account_url -u $snowflake_username -p $snowflake_password -d $snowflake_database -s $snowflake_schema \
+            -q "PUT file:///$GITHUB HORKSPACE/data.csv @$snowflake_stage auto_compress=true overwrite=true"
+            
       - name: Run dbt
         env:
           DBT_USER: ${{ secrets.SNOWFLAKE_USER }}
