@@ -63,6 +63,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install dbt_snowflake
 
+      - name: Run the fresh_orders (increment fresh orders)
+        env:
+          DBT_ACCOUNT: ${{ secrets.DBT_ACCOUNT }}
+          DBT_USER: ${{ secrets.DBT_USER }}
+          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+        run: dbt run --profiles-dir profiles --models fresh_orders
+
+      - name: Run the fresh_order_detail (increment fresh order detail)
+        env:
+          DBT_ACCOUNT: ${{ secrets.DBT_ACCOUNT }}
+          DBT_USER: ${{ secrets.DBT_USER }}
+          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+        run: dbt run --profiles-dir profiles --models fresh_order_detail
+      
       - name: Run the raw_orders (increment new orders)
         env:
           DBT_ACCOUNT: ${{ secrets.DBT_ACCOUNT }}
