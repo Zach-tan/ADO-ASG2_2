@@ -1,0 +1,8 @@
+models:
+  - name: stg_supplier
+    description: one unique order per row
+    columns:
+      - name: orderid
+        description: the primary key for stg_supplier
+      - name: shipmode
+        description: '{{ doc("supplier_doc")}}'

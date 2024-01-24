@@ -1,0 +1,8 @@
+models:
+  - name: stg_customer_reporting
+    description: one unique order per row
+    columns:
+      - name: orderid
+        description: the primary key for stg_customer_reporting
+      - name: shipmode
+        description: '{{ doc("customer_reporting_doc")}}'
