@@ -1,0 +1,82 @@
+models:
+  - name: stg_sales
+    description: Contains sales data with one unique order per row
+    columns:
+      - name: CustomerID
+        description: Unique Customer identifier (Primary Key)
+      - name: CompanyName
+        description: Name of the customer's company
+      - name: ContactName
+        description: Name of the primary contact person
+      - name: ContactTitle
+        description: Title of the primary contact person
+      - name: Address
+        description: Customer's address
+      - name: City
+        description: City where the customer is located
+      - name: Region
+        description: Region where the customer is located
+      - name: PostalCode
+        description: Postal code of the customer's location
+      - name: Country
+        description: Country where the customer is located
+      - name: Phone
+        description: Customer's phone number
+      - name: Fax
+        description: Customer's fax number
+      - name: OrderID
+        description: Unique Order identifier (Primary Key)
+      - name: EmployeeID
+        description: ID of the employee processing the order
+      - name: OrderDate
+        description: Date when the order was placed
+      - name: RequiredDate
+        description: Date when the order is required
+      - name: ShippedDate
+        description: Date when the order was shipped
+      - name: ShipVia
+        description: ID of the shipping company used for the order
+      - name: Freight
+        description: Freight cost for shipping
+      - name: ShipName
+        description: Name of the person or company to whom the order should be shipped
+      - name: ShipAddress
+        description: Address to which the order should be shipped
+      - name: ShipCity
+        description: City to which the order should be shipped
+      - name: ShipRegion
+        description: Region to which the order should be shipped
+      - name: ShipPostalCode
+        description: Postal code to which the order should be shipped
+      - name: ShipCountry
+        description: Country to which the order should be shipped
+      - name: OrderDetailProductID
+        description: Product identifier for the order detail
+      - name: SalesQuantity
+        description: Number of units being ordered
+      - name: OrderDetailUnitPrice
+        description: Price per unit of the product at the time the order was placed (USD - discount not included)
+      - name: Discount
+        description: The discount percentage applied to the price per unit
+      - name: ProductName
+        description: Name of the product
+      - name: SupplierID
+        description: ID of the supplier
+      - name: CategoryID
+        description: ID of the category the product belongs to
+      - name: QuantityPerUnit
+        description: Quantity of the product per unit
+      - name: ProductUnitPrice
+        description: Price per unit of the product (USD)
+      - name: UnitsInStock
+        description: Number of units in stock
+      - name: UnitsOnOrder
+        description: Number of units on order
+      - name: ReorderLevel
+        description: Minimum quantity that should trigger a reorder
+      - name: Discontinued
+        description: Indicates with a 1 if the product has been discontinued
+      - name: UnitCost
+        description: Cost per unit of the product
+      - name: SalesAmount
+        description: Total sales amount for the order (calculated as OrderDetailUnitPrice * SalesQuantity * (1 - Discount))
