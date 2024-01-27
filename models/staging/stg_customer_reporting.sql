@@ -1,4 +1,3 @@
---Create staging table for customer reporting
 {{ config (materialized='view')}}
 
 WITH OrderSummary AS (
@@ -17,10 +16,8 @@ CustomerOrderStatus AS (
     SELECT
         c.CustomerID,
         c.contactname,
-        o.orderid,
         CASE
             WHEN o.ShippedDate IS NULL THEN 'Pending'
-            WHEN o.ShippedDate IS NOT NULL AND o.ShippedDate < CURRENT_DATE() THEN 'Shipped'
             ELSE 'Delivered'
         END AS OrderStatus,
         DATEDIFF(day, o.ORDERDATE, o.shippeddate) AS ShipTime
@@ -59,7 +56,6 @@ ProductSummary AS (
         od.ProductID,p.productname
 )
 
--- Use the ProductSummaryCTE in subsequent queries
 
 
 SELECT 
@@ -107,7 +103,6 @@ SELECT
     --Customer reporting columns
     os.NetSales,
     cos.OrderStatus,
-    cos.ShipTime,
     cod.AvgOrderValue,
     cod.TotalOrders AS TotalOrdersbyCustomer,
     ps.TotalQuantitySold
@@ -163,10 +158,6 @@ GROUP BY
     cat.Description,
     os.NetSales,
     cos.OrderStatus,
-    cos.ShipTime,
     cod.AvgOrderValue,
     cod.TotalOrders,
     ps.TotalQuantitySold    
-
-
-

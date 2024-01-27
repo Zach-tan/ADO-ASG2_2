@@ -36,7 +36,6 @@
 | ProductCategoryDescription | Description of the product category	         |
 | NetSales		          | Calculated by (revenue - discount)		         |
 | OrderStatus 		      | States whether the order is 'Pending','Shipped' or 'Delivered' |
-| ShipTime		          | States How long the order takes to ship	         |
 | AvgOrderValue		      | Average order value per order		             |		
 | TotalOrdersbyCustomer	  | Displays total customer orders		             |
 | TotalQuantitySold	      | Quantity of product sold			             |

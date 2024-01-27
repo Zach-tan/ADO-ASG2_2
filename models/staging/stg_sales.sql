@@ -46,8 +46,12 @@ SELECT
     p.UnitsOnOrder,
     p.ReorderLevel,
     p.Discontinued,
-    p.UnitCost
+    p.UnitCost,
+
+    -- Category details
+    cat.CategoryName
 FROM {{ ref('raw_customer') }} c
 LEFT JOIN {{ ref('raw_orders') }} o ON c.customerid = o.customerid
 LEFT JOIN {{ ref('raw_order_detail') }} od ON o.orderid = od.orderid
 LEFT JOIN {{ source('ADO', 'PRODUCT') }} p ON od.productid = p.productid
+LEFT JOIN {{ ref('raw_category') }} cat ON p.CategoryID = cat.CategoryID

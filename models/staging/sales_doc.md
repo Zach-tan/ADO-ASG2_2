@@ -41,5 +41,6 @@
 | Discontinued	        | Indicates with a 1 if the product has been discontinued                                                   |
 | UnitCost	            | Cost per unit of the product                                                                              |
 | SalesAmount	        | Total sales amount for the order (calculated as OrderDetailUnitPrice * SalesQuantity * (1 - Discount))    |
+| CategoryName          | Name of the category of the product                                                                       |
 
 {% enddocs %}

@@ -43,7 +43,6 @@ SELECT
     --Customer reporting columns
     NetSales,
     OrderStatus,
-    ShipTime,
     AvgOrderValue,
     TotalOrdersbyCustomer,
     TotalQuantitySold

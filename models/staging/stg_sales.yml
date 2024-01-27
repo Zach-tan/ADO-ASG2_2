@@ -80,3 +80,5 @@ models:
         description: Cost per unit of the product
       - name: SalesAmount
         description: Total sales amount for the order (calculated as OrderDetailUnitPrice * SalesQuantity * (1 - Discount))
+      - name: categoryname
+        description: Name of the category of the product

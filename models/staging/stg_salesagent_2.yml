@@ -1,0 +1,8 @@
+models:
+  - name: stg_salesagent_2
+    description: one unique order per row
+    columns:
+      - name: orderid
+        description: the primary key for stg_salesagent
+      - name: shipmode
+        description: '{{ doc("salesagent_2_doc")}}'
